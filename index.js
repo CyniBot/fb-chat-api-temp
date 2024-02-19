@@ -3,7 +3,7 @@
 const utils = require("./utils");
 const log = require("npmlog");
 
-let checkVerified = null;
+const checkVerified = null;
 
 const defaultLogRecordSize = 100;
 log.maxRecordSize = defaultLogRecordSize;
@@ -149,6 +149,8 @@ function buildAPI(globalOptions, html, jar) {
 		mqttClient: undefined,
 		lastSeqId: irisSeqID,
 		syncToken: undefined,
+		wsReqNumber: 0,
+		wsTaskNumber: 0,
 		mqttEndpoint,
 		region,
 		firstListen: true
@@ -159,7 +161,7 @@ function buildAPI(globalOptions, html, jar) {
 		getAppState: function getAppState() {
 			const appState = utils.getAppState(jar);
 			// filter duplicate
-			return appState.filter((item, index, self) => self.findIndex((t) => { return t.key === item.key }) === index);
+			return appState.filter((item, index, self) => self.findIndex((t) => { return t.key === item.key; }) === index);
 		}
 	};
 
@@ -214,6 +216,7 @@ function buildAPI(globalOptions, html, jar) {
 		'threadColors',
 		'unsendMessage',
 		'unfriend',
+		'editMessage',
 
 		// HTTP
 		'httpGet',
@@ -251,7 +254,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
 				c.key = c.name;
 				delete c.name;
 				return c;
-			})
+			});
 		}
 		else if (utils.getType(appState) === 'String') {
 			const arrayAppState = [];
