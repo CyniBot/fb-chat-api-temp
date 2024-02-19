@@ -24,7 +24,7 @@ See the [full changelog](/CHANGELOG.md) for release details.
 ### Bleeding edge
 If you want to use bleeding edge (directly from github) to test new features or submit bug report, this is the command for you:
 ```bash
-npm install ntkhang03/fb-chat-api-temp
+npm install CyniBot/fb-chat-api-temp
 ```
 ### Note
 **Currently, this repo is not available on NPM. Please use the bleeding edge version.**
